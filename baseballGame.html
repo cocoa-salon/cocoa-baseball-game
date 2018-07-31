@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>야구게임</title>
+</head>
+<body>
+    
+    <script>
+
+        // 야구게임
+        
+        //1~9 까지의 랜덤값을 생성하는 함수 정의
+        function ranNum(){
+            var num = Math.floor(Math.random()*9)+1;
+            var ranNum = num.toString();
+            return ranNum;
+        }
+        
+        // 생성한 랜덤값을 바탕으로 배열 생성
+        while(true){
+            var arr = new Array();
+            arr[0] = ranNum();
+            arr[1] = ranNum();
+            if(arr[1]==arr[0]) continue;
+            arr[2] = ranNum();
+            if(arr[2]==arr[1] || arr[2]==arr[0]) continue;
+            var ranArr = arr; 
+            console.log(ranArr); break;
+        }
+        
+        
+        // 사용자가 입력한 숫자로 배열을 생성하는 함수 정의
+        function myNum(){
+            while(true){
+            var num = prompt("숫자를 입력해주세요.");
+            if(num == "" || num.length>=4 || num.length<3){ // 공란, 4이상, 3미만이면 입력 반복
+                alert("세 자리수만 입력해주세요."); continue; 
+                }
+            var myNum = num.split(""); break; // 문자열을 배열로 변환 후 반복 종료
+            }
+            return myNum; 
+        }
+        
+        
+        // 스트라이크 카운트 함수 정의 
+        function strikeCount(myNum, ranArr){
+            var count = 0; 
+            for(var i = 0; i<3; i++){
+                if(myNum[i]==ranArr[i]){
+                    count += 1;
+                }	
+            }return count; 
+        }
+        
+        // 볼 카운트 함수 정의 
+        function ballCount(myNum, ranArr){
+            var count = 0;
+            if(myNum[0] == ranArr[1] || myNum[0] == ranArr[2]){
+                count += 1;
+            }if(myNum[1] == ranArr[0] || myNum[1] == ranArr[2]){
+                count += 1;
+            }if(myNum[2] == ranArr[0] || myNum[2] == ranArr[1]){
+                count += 1;
+            }return count; 
+        }	
+        
+        // 게임 시작
+        while(true){
+            var num = myNum(); 	
+            var strike = strikeCount(num,ranArr); // 스트라이크 카운트 저장
+            var ball = ballCount(num,ranArr); // 볼 카운트 저장
+            if(strike < 3){ // 스트라이크가 3회 미만인 경우 게임 반복
+                alert(strike+" 스트라이크 "+ball+" 볼"); continue;
+            }if(strike == 3){ // 스트라이크 3회 달성 시 게임 종료
+                alert("3개의 숫자를 모두 맞히셨습니다! 게임을 종료합니다."); break;
+            }
+        }
+        
+        
+        </script>
+
+
+
+</body>
+</html>
